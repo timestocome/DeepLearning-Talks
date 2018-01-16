@@ -16,8 +16,8 @@ import matplotlib.pyplot as plt
 ##############################################################
 
 # data
-features = np.asarray([1, 2, 3])
-y = np.asarray([1, 2, 2])
+x = np.asarray([1, 2, 3, 4, 5, 6])
+y = np.asarray(2 * x + 1)
 
 
 
@@ -27,10 +27,10 @@ y = np.asarray([1, 2, 2])
 
 
 # add row of ones to x, this is our bias
-x_ones = np.ones(len(features))
+x_ones = np.ones(len(x))
 
 # x inputs
-X = np.vstack((x_ones, features))
+X = np.vstack((x_ones, x))
 
 # x vector transposed for dot product
 XT = np.transpose(X)
@@ -79,10 +79,11 @@ while (last_error - error) > 0.01:
     error = np.sum((y - y_hat)**2)
 
     
-    print(error, last_error)
+    print(error)
 
 y_predicted = np.dot(w, X)
-    
+print('w ', w )
+
 
 #################################################
 # plots
@@ -91,8 +92,9 @@ y_predicted = np.dot(w, X)
 
 
 plt.figure(figsize=(12,12))
+plt.title('Least Squares' )
 
-plt.scatter(features, y)
-plt.plot(y_predicted)
+plt.scatter(x, y)
+plt.plot(x, y_predicted)
 
 plt.show()

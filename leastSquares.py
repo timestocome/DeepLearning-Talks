@@ -80,3 +80,19 @@ while (last_error - error) > 0.01:
 
     
     print(error, last_error)
+
+y_predicted = np.dot(w, X)
+    
+
+#################################################
+# plots
+##################################################
+
+
+
+plt.figure(figsize=(12,12))
+
+plt.scatter(features, y)
+plt.plot(y_predicted)
+
+plt.show()

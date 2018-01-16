@@ -3,6 +3,11 @@
 # Linear Regression
 
 
+# same as least squares except:
+#   init weights using equation 5.12
+#   add learning for b (intercept) separate from weights
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -14,41 +19,45 @@ import matplotlib.pyplot as plt
 ##############################################################
 
 # data
-x = np.asarray([1, 2, 3,
-                4, 5, 6])
+x = np.asarray([1, 2, 3, 4, 5, 6])
 y = np.asarray( 2 * x + 1)
-
-
-
-
-##########################################################
-# solve
-#########################################################
 
 # x vector transposed 
 xT = np.transpose(x)
 
 
-# equation 5.12
+
+# init w Eq 5.12
 w = np.dot(xT, y) / np.dot(xT, x)
+b = 0.
+
+##########################################################
+# solve
+#########################################################
+error = 10.
+learning_rate = 0.01
 
 
-b = y[0] - np.dot(w, x)[0]
+while(error > 0.01):
+
+    w = w - learning_rate * (np.dot(xT, y) / np.dot(xT, x))
+
+    y_predicted = np.dot(w, x) + b
+
+    b = b - (y_predicted[0] - y[0]) 
 
 
-# 5.13
-y_predicted = np.dot(w, x) + b
+    print('Error', error)
+    error = np.sum( (y_predicted - y)**2 )
 
-
-
-print('w ', w )
-print('b', b)
+print('w (slope)', w )
+print('b (intercept)', b)
 
 #################################################
 # plots
 ##################################################
 
-
+y_predicted = x * w + b
 
 plt.figure(figsize=(12,12))
 plt.title('Linear Regression')
